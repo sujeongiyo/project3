@@ -18,7 +18,7 @@ supabase_key = os.environ.get("SUPABASE_KEY")
 supabase = create_client(supabase_url, supabase_key)
 
 # OpenAI 클라이언트 초기화 (벡터 임베딩용)
-openai_client = OpenAI(api_key=os.environ.get("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"))
+openai_client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 def generate_embedding(text):
     """텍스트에서 OpenAI 임베딩 생성"""
