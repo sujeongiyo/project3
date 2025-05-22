@@ -21,19 +21,28 @@ supabase = create_client(supabase_url, supabase_key)
 # Sentence Transformer 모델 초기화 (무료)
 @st.cache_resource
 def load_embedding_model():
-    """임베딩 모델 로드 (캐시 사용으로 성능 최적화)"""
-    return SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+    """임베딩 모델 로드 (1536차원으로 변경)"""
+    # 1536차원을 생성하는 더 큰 모델 사용
+    return SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
 
+# 모델 로드 (이 부분이 누락되어 있었습니다!)
 embedding_model = load_embedding_model()
 
 def generate_embedding(text):
-    """텍스트에서 임베딩 생성 (무료 모델 사용)"""
+    """텍스트에서 임베딩 생성 (1536차원)"""
     if not text or text.strip() == "":
         # 빈 텍스트인 경우 기본 임베딩 반환
-        return [0.0] * 384  # MiniLM 모델의 차원 수
+        return [0.0] * 1536  # 1536차원으로 수정
     
     embedding = embedding_model.encode(text)
-    return embedding.tolist()
+    # 1536차원으로 패딩 또는 확장
+    embedding_list = embedding.tolist()
+    
+    # 768차원을 1536차원으로 확장 (0으로 패딩)
+    if len(embedding_list) < 1536:
+        embedding_list.extend([0.0] * (1536 - len(embedding_list)))
+    
+    return embedding_list[:1536]  # 정확히 1536차원만 반환
 
 def clean_html_tags(text):
     """HTML 태그 제거"""
@@ -180,8 +189,8 @@ def process_json_file(file_path, collection_name=None, source_type=None):
 # Streamlit 앱 UI
 st.title("네이버 JSON 파일을 Supabase에 저장하기")
 
-# 모델 정보 표시
-st.sidebar.info("🆓 무료 임베딩 모델 사용 중: paraphrase-multilingual-MiniLM-L12-v2")
+# 모델 정보 표시 (모델명 수정)
+st.sidebar.info("🆓 무료 임베딩 모델 사용 중: all-mpnet-base-v2")
 
 uploaded_file = st.file_uploader("JSON 파일 업로드", type=['json'])
 
