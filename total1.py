@@ -17,8 +17,8 @@ import time
 st.set_page_config(page_title="스마트 쇼핑 파인더", layout="wide")
 
 # 네이버 API 클라이언트 ID와 시크릿
-NAVER_CLIENT_ID = "H0eVNK_mnFjmNsi0iAyc"
-NAVER_CLIENT_SECRET = "ZC_2Q5VbQ4"
+NAVER_CLIENT_ID = st.secrets["NAVER_CLIENT_ID"]
+NAVER_CLIENT_SECRET = st.secrets["NAVER_CLIENT_SECRET"]
 
 # Streamlit에서 실행 중인지 확인하고 secrets 가져오기
 try:
