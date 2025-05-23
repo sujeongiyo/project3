@@ -1,3 +1,5 @@
+# 네이버 API 에서 쇼핑, 블로그, 뉴스의 데이터를 json 으로 수집하는 스트림잇 코드
+
 # -*- coding: utf-8 -*-
 import streamlit as st
 import urllib.request
