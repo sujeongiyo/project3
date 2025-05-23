@@ -605,7 +605,7 @@ source_options = ["쇼핑", "블로그", "뉴스"] # 검색 소스 순서 변경
 samsung_laptop_questions = [
     "요즘 인기 있는 키링을 추천해주세요.",
     "인기 있는 키링들 중 가격을 비교해주세요.",
-    "곰돌이이 키링 중 인기 있는 것은 무엇인가요?"
+    "곰돌이 키링 중 인기 있는 것은 무엇인가요?"
 ]
 default_queries_map = {
     "쇼핑": samsung_laptop_questions[0], # 쇼핑 탭 기본 질문
